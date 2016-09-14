@@ -11,8 +11,8 @@ public class BallController : MonoBehaviour {
 	private Vector3 finalMouseLocation;
 	private Vector3 mouseDistTraveled;
 
-	private int throwSpeed;
-	private int throwSpin;
+	private float throwSpeed;
+	private float throwSpin;
 
 	// Use this for initialization
 	void Start () {
