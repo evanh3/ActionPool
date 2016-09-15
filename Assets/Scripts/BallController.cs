@@ -5,16 +5,14 @@ public class BallController : MonoBehaviour {
 
 	public int speed;
 	public int spinSpeed;
-	private bool mouseHeldDown;
+
 	private Vector3 initialMouseLocation;
 	private Vector3 finalMouseLocation;
 	private Vector3 mouseDistTraveled;
 	private Vector3 ballMoveVector;
 
+	private bool mouseHeldDown;
 	private bool moveBall;
-
-	private float throwSpeed;
-	private float throwSpin;
 
 	private Rigidbody rb;
 
@@ -23,6 +21,7 @@ public class BallController : MonoBehaviour {
 		mouseHeldDown = false;
 		rb = GetComponent<Rigidbody> ();
 		moveBall = false;
+		rb.maxAngularVelocity = 1000;
 	}
 	
 	// Update is called once per frame
@@ -67,16 +66,16 @@ public class BallController : MonoBehaviour {
 	void rollBall(){
 		mouseDistTraveled = initialMouseLocation - finalMouseLocation;
 		ballMoveVector.x = mouseDistTraveled.x;
-		ballMoveVector.z = mouseDistTraveled.y;
+		ballMoveVector.z = mouseDistTraveled.y * speed;
 		ballMoveVector.y = 0;
 
-		//rb.AddForce (ballMoveVector);
-		rb.AddRelativeTorque (0, 0, ballMoveVector.x * spinSpeed * (-1));
+		rb.AddTorque (0, 0, ballMoveVector.x * spinSpeed * (-1));
+
+		ballMoveVector.x = -200;
+
+		rb.AddForce (ballMoveVector); 
 
 		ballMoveVector = Vector3.zero;
-
-		throwSpeed = mouseDistTraveled.x;
-		throwSpin = mouseDistTraveled.y;
 	}
 
 	/*
